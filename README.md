@@ -5,10 +5,12 @@ discrete energy landscapes.
 
 # `genCG.pl`
 
-The Perl script `genCG.pl` computes the gradient-based coarse graining of a
+The Perl5 script `genCG.pl` computes the gradient-based coarse graining of a
 given energy landscape encoding as produced by the 
 [`barriers`](https://github.com/ViennaRNA/Barriers) tool when enabling
 full rate computation activated by its `--rates` argument.
+
+Usage: `perl genCG.pl <barriersOutput> <barriersRates>`
 
 ### RNA example
 
@@ -32,14 +34,15 @@ mv rates.out $RNA.barriers.rates;
 # cleanup obsolete barriers files
 rm -f rates.bin tree.ps treeR.ps;
 
+(
 # get micro-state landscape size
 printf "#states level 0 = ";unzip -p $RNA.RNAsubopt.zip | grep -c -v $RNA;
 # compute generalized coarse grainings
 perl genCG.pl $RNA.barriers.out $RNA.barriers.rates
-
+)
 ```
 
-The calls produce the final `genCG.pl` output
+The calls produce the output
 ```[bash]
 #states level 0 = 1656
 #states level 1 = 38
