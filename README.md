@@ -56,7 +56,7 @@ Furthermore, the following files for each coarse graining level (`LVL`) > 1 are 
 - `*.LVL.barriers` : a dummy `barriers` output file for the current level
 - `*.LVL.rates` : the rates matrix for the current level
 
-Given this data, you can plot the probability time series for the states using
+Given this data, you can plot the probability time series for the macro-states using
 [`treekin`](https://github.com/ViennaRNA/Treekin).
 ```[bash]
 # define variables for the following shell function
@@ -85,14 +85,17 @@ RNA=GACCGGAAGGUCCGCCUUCC
 ln -s -f $RNA.barriers.out $RNA.barriers.out.1.barriers
 ln -s -f $RNA.barriers.rates $RNA.barriers.out.1.rates
 FILE=$RNA.barriers.out.1
-OCID=12
+OCID=12 # open chain state
 runTreekin
 
 # level 2 plot
 FILE=$RNA.barriers.out.2
-OCID=2
+OCID=2 # gradient neighbor of open chain state from level 1
 runTreekin
 
 ```
 
+which will generate the following figures
+
+![level 1](md.aux/GACCGGAAGGUCCGCCUUCC.png)
 
