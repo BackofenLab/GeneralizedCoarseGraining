@@ -3,18 +3,18 @@
 Generalized Coarse Graining (GCG) enables the recursive coarse graining of 
 discrete energy landscapes.
 
-# `genCG.pl`
+# `gcgBarriers.pl`
 
-The Perl5 script `genCG.pl` computes the gradient-based coarse graining of a
+The Perl5 script `gcgBarriers.pl` computes the gradient-based coarse graining of a
 given energy landscape encoding as produced by the 
 [`barriers`](https://github.com/ViennaRNA/Barriers) tool when enabling
 full rate computation activated by its `--rates` argument.
 
-Usage: `perl genCG.pl <barriersOutput> <barriersRates>`
+Usage: `perl gcgBarriers.pl <barriersOutput> <barriersRates>`
 
 ### RNA example
 
-The following call set exemplifies the usage of `genCG.pl` for RNA secondary
+The following call set exemplifies the usage of `gcgBarriers.pl` for RNA secondary
 structure energy landscapes using the 
 [Vienna RNA package](https://github.com/ViennaRNA/ViennaRNA). 
 *Note*, the calls are only viable for very short sequences since the whole
@@ -39,7 +39,7 @@ rm -f rates.bin tree.ps treeR.ps;
 # get micro-state landscape size
 printf "#states level 0 = "; unzip -p $RNA.RNAsubopt.zip | grep -c -v $RNA;
 # compute generalized coarse grainings
-perl genCG.pl $RNA.barriers.out $RNA.barriers.rates
+perl gcgBarriers.pl $RNA.barriers.out $RNA.barriers.rates
 )
 ```
 

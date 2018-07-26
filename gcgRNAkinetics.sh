@@ -21,7 +21,7 @@ Ravailable=1;
 [[ $(type -P "RNAsubopt") ]] || die "\nERROR : RNAsubopt not in PATH\n";
 [[ $(type -P "barriers") ]] || die "\nERROR : barriers not in PATH\n";
 [[ $(type -P "treekin") ]] || die "\nERROR : treekin not in PATH\n";
-[[ $(type -P "genCG.pl") ]] || die "\nERROR : genCG.pl not in PATH or not executable\n";
+[[ $(type -P "gcgBarriers.pl") ]] || die "\nERROR : gcgBarriers.pl not in PATH or not executable\n";
 if [ ! $(type -P "R") ]; then
 	echo -e "\nWARNING : R not in PATH => skipping figure generation\n"; 
 	Ravailable=0;
@@ -51,14 +51,14 @@ fi
 
 ##############  LEVEL >1 COARSE GRAINING  #################
 
-if [ ! -f $RNA.genCG.out ]; then
+if [ ! -f $RNA.gcgBarriers.out ]; then
 
 (
 # get micro-state landscape size
 printf "#states level 0 = "; unzip -p $RNA.RNAsubopt.zip | grep -c -v $RNA;
 # compute generalized coarse grainings
-perl genCG.pl $RNA.barriers.out $RNA.barriers.rates
-) > $RNA.genCG.out
+perl gcgBarriers.pl $RNA.barriers.out $RNA.barriers.rates
+) > $RNA.gcgBarriers.out
 
 fi
 
