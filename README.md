@@ -98,3 +98,4 @@ which will generate the following figures
 
 ![level 1](md.aux/GACCGGAAGGUCCGCCUUCC.png)
 
+Used program versions for the example output: ViennaRNA-2.4.4, barriers-1.6.0, treekin-0.3.1
