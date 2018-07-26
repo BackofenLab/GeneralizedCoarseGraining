@@ -56,6 +56,7 @@ if [ ! -f $PREFIX.barriers.out ]; then
 # create temporary subdir to avoid parallel file generation
 CURPWD=$PWD
 TMPDIR=$(mktemp -d -p $CURPWD)
+echo -e "\nINFO: creating barriers temporary directory $TMPDIR for $PREFIX";
 cd $TMPDIR  
 # run barriers to compute coarse graining level 1
 unzip -p $CURPWD/$PREFIX.RNAsubopt.zip | barriers --rates -G RNA -M noShift --bsize --max=999999 --minh=0 > $CURPWD/$PREFIX.barriers.out;
@@ -96,7 +97,8 @@ function runTreekin {
 if [ ! -f $OUTFILE.out.bz2 ]; then
  # create temporary subdir to avoid parallel file generation
  CURPWD=$PWD
-TMPDIR=$(mktemp -d -p $CURPWD)
+ TMPDIR=$(mktemp -d -p $CURPWD)
+ echo -e "\nINFO: creating treekin temporary directory $TMPDIR for $PREFIX";
  cd $TMPDIR  
  # ensure file naming for treekin call
  ln -s ../$FILE.rates rates.out;
