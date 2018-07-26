@@ -32,7 +32,7 @@ use constant T => 310.15; # temperature in Kelvin
 
 # check file existence
 die "ERROR: can not find barriers output file '".$barriersOutputFile."'" unless -e $barriersOutputFile;
-die "ERROR: can not find barriers reates file '".$barriersRatesFile."'" unless -e $barriersRatesFile;
+die "ERROR: can not find barriers rates file '".$barriersRatesFile."'" unless -e $barriersRatesFile;
 
 # original local min index
 my @locMinIdx = ();
