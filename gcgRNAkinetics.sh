@@ -65,7 +65,7 @@ mv rates.out $CURPWD/$PREFIX.barriers.rates;
 # go back to previous working directoy
 cd $CURPWD
 # cleanup obsolete barriers files and temporary directory
-trap 'rm -rf $TMPDIR' EXIT
+rm -rf $TMPDIR
 
 fi
 
@@ -107,10 +107,10 @@ treekin -m I --p0 $OCID=1  --t8=$MAXTIME < ../$FILE.barriers > $CURPWD/$OUTFILE.
  # go back to previous working directoy
  cd $CURPWD
  # cleanup temporary directory
- trap 'rm -rf $TMPDIR' EXIT
+ rm -rf $TMPDIR
  # compress treekin output 
  bzip2 $OUTFILE.out; 
- trap 'rm -rf $OUTFILE.out' EXIT
+ rm -rf $OUTFILE.out
  # generate output figure in pdf format using R
 fi # treekin output exists
 if [ $Ravailable == "1" ]; then
