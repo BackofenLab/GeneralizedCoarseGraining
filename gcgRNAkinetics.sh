@@ -86,24 +86,24 @@ fi
 
 
 # define variables for the following shell function
-FILE="undef"; # base file name without extension (.barriers .rates)
-OCID=0; # funnel of open chain state to be taken from according barriers output file
-LVL=0; # the coarse graining level
 # shell function (tested in bash) to compute one plot via treekin 
 function runTreekin {
  # output file prefix 
  OUTFILE=$FILE.treekin.p0-$OCID.t8-$MAXTIME
 # check if output file exists already (do not replace)
 if [ ! -f $OUTFILE.out.bz2 ]; then
+	CURFILE=$1 # base file name without extension (.barriers .rates)
+	CURLVL=$2  # funnel of open chain state to be taken from according barriers output file
+	CUROCID=$3 # the coarse graining level
  # create temporary subdir to avoid parallel file generation
  CURPWD=$PWD
  TMPDIR=$(mktemp -d -p $CURPWD)
  echo -e "\nINFO: creating treekin temporary directory $TMPDIR for $PREFIX";
  cd $TMPDIR  
  # ensure file naming for treekin call
- ln -s ../$FILE.rates rates.out;
+ ln -s ../$CURFILE.rates rates.out;
  # call treekin
-treekin -m I --p0 $OCID=1  --t8=$MAXTIME < ../$FILE.barriers > $CURPWD/$OUTFILE.out;
+treekin -m I --p0 $CUROCID=1  --t8=$MAXTIME < ../$CURFILE.barriers > $CURPWD/$OUTFILE.out;
  # go back to previous working directoy
  cd $CURPWD
  # cleanup temporary directory
@@ -114,7 +114,7 @@ treekin -m I --p0 $OCID=1  --t8=$MAXTIME < ../$FILE.barriers > $CURPWD/$OUTFILE.
  # generate output figure in pdf format using R
 fi # treekin output exists
 if [ $Ravailable == "1" ]; then
-R --vanilla --silent -e "k <- read.table(\"$OUTFILE.out.bz2\", header=F, sep=\"\", comment.char=\"#\", skip=8);pdf(\"$OUTFILE.pdf\");matplot(k[,1], k[,2:ncol(k)], main=\"level = $LVL, p0 = $OCID\", xlab=\"time (arbitrary units)\", ylab=\"state probability\", ylim=c(0,1), log=\"x\", type=\"l\");dev.off(); q();"
+R --vanilla --silent -e "k <- read.table(\"$OUTFILE.out.bz2\", header=F, sep=\"\", comment.char=\"#\", skip=8);pdf(\"$OUTFILE.pdf\");matplot(k[,1], k[,2:ncol(k)], main=\"level = $CURLVL, p0 = $CUROCID\", xlab=\"time (arbitrary units)\", ylab=\"state probability\", ylim=c(0,1), log=\"x\", type=\"l\");dev.off(); q();"
 fi # R available
 }
 
@@ -122,10 +122,9 @@ fi # R available
 # handle level 1
 ln -s -f $PREFIX.barriers.out $PREFIX.barriers.out.1.barriers
 ln -s -f $PREFIX.barriers.rates $PREFIX.barriers.out.1.rates
-FILE=$PREFIX.barriers.out.1
 # get open chain ID
 OCID=$(grep -P "^\\s*\\d+\\s+[\\.]+\\s+0" $PREFIX.barriers.out | awk 'NR==1 {print $1}');
-runTreekin
+runTreekin $PREFIX.barriers.out.1 1 $OCID
 
 # get maximal level
 MAXLVL=$(ls $PREFIX.*.gradient | awk -F "." '{print $4}' | tail -n 1)
@@ -134,12 +133,10 @@ MAXLVL=$((MAXLVL-1))
 
 # iterate over each level
 for LVL in $(seq 2 $MAXLVL); do
-	# set file
-	FILE=$PREFIX.barriers.out.$LVL
 	# get current OCID via gradient mapping from last level
 	LASTOCID=$((OCID+1))
 	OCID=$(head -n $LASTOCID $FILE.gradient | tail -n 1 | awk '{print $11}')
 	# run treekin
-	runTreekin
+	runTreekin $PREFIX.barriers.out.$LVL $LVL $OCID
 done # iterate all LVL 
 
