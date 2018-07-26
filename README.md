@@ -14,15 +14,14 @@ Usage: `perl gcgBarriers.pl <barriersOutput> <barriersRates>`
 
 ### RNA example
 
-The following call set exemplifies the usage of `gcgBarriers.pl` for RNA secondary
-structure energy landscapes using the 
+The following call set exemplifies the usage of `gcgBarriers.pl` for the RNA secondary
+structure energy landscape of riboswitch [boris-1](data/README.md) using the 
 [Vienna RNA package](https://github.com/ViennaRNA/ViennaRNA). 
 *Note*, the calls are only viable for very short sequences since the whole
 accessible structure space / energy landscape is considered. 
 
 ```[bash]
 # define RNA sequence of interest
-# e.g. riboswitch from https://doi.org/10.1002/bip.20761 Fig.7(left)
 RNA=GACCGGAAGGUCCGCCUUCC
 
 # enumerate (and sort) all secondary structures (first by energy using structure string for tie breaking)
