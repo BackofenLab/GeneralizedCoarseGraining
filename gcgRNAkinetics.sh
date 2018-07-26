@@ -93,17 +93,21 @@ function runTreekin {
  # output file prefix 
  OUTFILE=$FILE.treekin.p0-$OCID.t8-$MAXTIME
 # check if output file exists already (do not replace)
-if [ ! -f $OUTFILE.out ]; then
+if [ ! -f $OUTFILE.out.bz2 ]; then
  # ensure file naming for treekin call
  ln -s $FILE.rates rates.out;
   # call treekin
- treekin -m I --p0 $OCID=1  --t8=$MAXTIME < $FILE.barriers > $OUTFILE.out; 
+treekin -m I --p0 $OCID=1  --t8=$MAXTIME < $FILE.barriers > $OUTFILE.out;
+# compress treekin output 
+bzip2 $OUTFILE.out; 
+# remove uncompressed output
+rm -f $OUTFILE.out;
  # cleanup temporary files
  rm -f rates.out;
  # generate output figure in pdf format using R
 fi # treekin output exists
 if [ $Ravailable == "1" ]; then
- R --vanilla --silent -e "k <- read.table(\"$OUTFILE.out\", header=F, sep=\"\");pdf(\"$OUTFILE.pdf\");matplot(k[,1], k[,2:ncol(k)], main=\"level = $LVL, p0 = $OCID\", xlab=\"time (arbitrary units)\", ylab=\"state probability\", ylim=c(0,1), log=\"x\", type=\"l\");dev.off(); q();"
+R --vanilla --silent -e "k <- read.table(\"$OUTFILE.out.bz2\", header=F, sep=\"\", comment.char=\"#\", skip=8);pdf(\"$OUTFILE.pdf\");matplot(k[,1], k[,2:ncol(k)], main=\"level = $LVL, p0 = $OCID\", xlab=\"time (arbitrary units)\", ylab=\"state probability\", ylim=c(0,1), log=\"x\", type=\"l\");dev.off(); q();"
 fi # R available
 }
 
