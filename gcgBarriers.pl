@@ -5,7 +5,7 @@ use List::Util qw(sum max min);
 
 # check argument number
 if ( ($#ARGV + 1) < 2 ) {
-    print "\nUsage: ".$0." <barriersOutputFile> <barriersRatesFile> [list IDs not to be merged]\n";
+    print "\nUsage: ".$0." <barriersOutputFile> <barriersRatesFile> [list of IDs not to be merged]\n";
     exit -1;
 }
 
