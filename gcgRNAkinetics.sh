@@ -103,13 +103,14 @@ if [ ! -f $OUTFILE.out.bz2 ]; then
  # ensure file naming for treekin call
  ln -s ../$FILE.rates rates.out;
  # call treekin
- treekin -m I --p0 $OCID=1  --t8=$MAXTIME < ../$FILE.barriers > $OUTFILE.out;
- # compress treekin output 
- bzip2 ../$OUTFILE.out; 
+treekin -m I --p0 $OCID=1  --t8=$MAXTIME < ../$FILE.barriers > $CURPWD/$OUTFILE.out;
  # go back to previous working directoy
  cd $CURPWD
- # cleanup obsolete barriers files and temporary directory
+ # cleanup temporary directory
  trap 'rm -rf $TMPDIR' EXIT
+ # compress treekin output 
+ bzip2 $OUTFILE.out; 
+ trap 'rm -rf $OUTFILE.out' EXIT
  # generate output figure in pdf format using R
 fi # treekin output exists
 if [ $Ravailable == "1" ]; then
