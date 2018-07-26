@@ -16,7 +16,7 @@ if [ "$#" -gt "0" ]; then
 	# get file content: should contain only one RNA (consecutive) sequence
 	# trim leading/trailing whitespaces
 	PREFIX=$1
-	RNA=`cat $PREFIX | awk '{if(NF>0){printf $1;for(i=2;i<=NF;i++){printf " "$i}}}'`;
+	RNA=$(cat $PREFIX | awk '{if(NF>0){printf $1;for(i=2;i<=NF;i++){printf " "$i}}}');
  else
 	# get RNA sequence from argument
 	RNA=$1;
@@ -55,7 +55,7 @@ if [ ! -f $PREFIX.barriers.out ]; then
 
 # create temporary subdir to avoid parallel file generation
 CURPWD=$PWD
-TMPDIR=`mktemp -d -p $CURPWD`
+TMPDIR=$(mktemp -d -p $CURPWD)
 cd $TMPDIR  
 # run barriers to compute coarse graining level 1
 unzip -p $CURPWD/$PREFIX.RNAsubopt.zip | barriers --rates -G RNA -M noShift --bsize --max=999999 --minh=0 > $CURPWD/$PREFIX.barriers.out;
@@ -64,7 +64,7 @@ mv rates.out $CURPWD/$PREFIX.barriers.rates;
 # go back to previous working directoy
 cd $CURPWD
 # cleanup obsolete barriers files and temporary directory
-rm -rf $TMPDIR
+trap 'rm -rf $TMPDIR' EXIT
 
 fi
 
@@ -94,16 +94,20 @@ function runTreekin {
  OUTFILE=$FILE.treekin.p0-$OCID.t8-$MAXTIME
 # check if output file exists already (do not replace)
 if [ ! -f $OUTFILE.out.bz2 ]; then
+ # create temporary subdir to avoid parallel file generation
+ CURPWD=$PWD
+TMPDIR=$(mktemp -d -p $CURPWD)
+ cd $TMPDIR  
  # ensure file naming for treekin call
- ln -s $FILE.rates rates.out;
-  # call treekin
-treekin -m I --p0 $OCID=1  --t8=$MAXTIME < $FILE.barriers > $OUTFILE.out;
-# compress treekin output 
-bzip2 $OUTFILE.out; 
-# remove uncompressed output
-rm -f $OUTFILE.out;
- # cleanup temporary files
- rm -f rates.out;
+ ln -s ../$FILE.rates rates.out;
+ # call treekin
+ treekin -m I --p0 $OCID=1  --t8=$MAXTIME < ../$FILE.barriers > $OUTFILE.out;
+ # compress treekin output 
+ bzip2 ../$OUTFILE.out; 
+ # go back to previous working directoy
+ cd $CURPWD
+ # cleanup obsolete barriers files and temporary directory
+ trap 'rm -rf $TMPDIR' EXIT
  # generate output figure in pdf format using R
 fi # treekin output exists
 if [ $Ravailable == "1" ]; then
@@ -117,21 +121,21 @@ ln -s -f $PREFIX.barriers.out $PREFIX.barriers.out.1.barriers
 ln -s -f $PREFIX.barriers.rates $PREFIX.barriers.out.1.rates
 FILE=$PREFIX.barriers.out.1
 # get open chain ID
-OCID=`grep -P "^\\s*\\d+\\s+[\\.]+\\s+0" $PREFIX.barriers.out | awk 'NR==1 {print $1}'`
+OCID=$(grep -P "^\\s*\\d+\\s+[\\.]+\\s+0" $PREFIX.barriers.out | awk 'NR==1 {print $1}');
 runTreekin
 
 # get maximal level
-MAXLVL=`ls $PREFIX.*.gradient | awk -F "." '{print $4}' | tail -n 1`
+MAXLVL=D(ls $PREFIX.*.gradient | awk -F "." '{print $4}' | tail -n 1)
 # reduce by one (last level has only one state)
 MAXLVL=$((MAXLVL-1))
 
 # iterate over each level
-for LVL in `seq 2 $MAXLVL`; do
+for LVL in $(seq 2 $MAXLVL); do
 	# set file
 	FILE=$PREFIX.barriers.out.$LVL
 	# get current OCID via gradient mapping from last level
 	LASTOCID=$((OCID+1))
-	OCID=`head -n $LASTOCID $FILE.gradient | tail -n 1 | awk '{print $11}'`
+	OCID=$(head -n $LASTOCID $FILE.gradient | tail -n 1 | awk '{print $11}')
 	# run treekin
 	runTreekin
 done # iterate all LVL 
