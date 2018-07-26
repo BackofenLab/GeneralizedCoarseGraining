@@ -127,7 +127,7 @@ OCID=$(grep -P "^\\s*\\d+\\s+[\\.]+\\s+0" $PREFIX.barriers.out | awk 'NR==1 {pri
 runTreekin
 
 # get maximal level
-MAXLVL=D(ls $PREFIX.*.gradient | awk -F "." '{print $4}' | tail -n 1)
+MAXLVL=$(ls $PREFIX.*.gradient | awk -F "." '{print $4}' | tail -n 1)
 # reduce by one (last level has only one state)
 MAXLVL=$((MAXLVL-1))
 
