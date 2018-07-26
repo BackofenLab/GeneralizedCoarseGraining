@@ -8,15 +8,25 @@ MAXTIME=100000000000; # maximal time (step) to compute
 # exit function
 die() { echo -e "$*" 1>&2 ; exit 1; }
 
-# check RNA sequence argument
-[[ ($# -eq 1 || ($# -eq 2 && $2 =~ ^[0-9]+$ )) && $1 =~ ^[ACGU]+$ ]] || die "\n usage : gcgRNAkinetics.sh <RNA sequence> <MAXTIME=$MAXTIME>";
-RNA=$1
-# (optional) check maximal time for kinetics computation 
+# get RNA sequence
+RNA=""
+if [ "$#" -gt "0" ]; then
+ if [ -f $1 ]; then
+	# get file content: should contain only one RNA (consecutive) sequence
+	# trim leading/trailing whitespaces
+	RNA=`cat $1 | awk '{if(NF>0){printf $1;for(i=2;i<=NF;i++){printf " "$i}}}'`;
+ else
+	# get RNA sequence from argument
+	RNA=$1;
+ fi	
+fi
+# check command line arguments
+[[ ($# -eq 1 || ($# -eq 2 && $2 =~ ^[0-9]+$ )) && ($RNA =~ ^[ACGU]+$ ) ]] || die "\n usage : gcgRNAkinetics.sh <RNA sequence (file)> <MAXTIME=$MAXTIME>";
+# (optional) get maximal time for kinetics computation 
 [[ $# -eq 2 ]] && MAXTIME=$2
 
 # whether or not R is available for plotting
 Ravailable=1;
-
 # ensure required binaries are in PATH
 [[ $(type -P "RNAsubopt") ]] || die "\nERROR : RNAsubopt not in PATH\n";
 [[ $(type -P "barriers") ]] || die "\nERROR : barriers not in PATH\n";
