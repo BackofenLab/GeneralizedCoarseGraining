@@ -145,11 +145,11 @@ fi
 # shell function (tested in bash) to compute one plot via treekin 
 function runTreekin {
 	CURFILE=$1 # base file name without extension (.barriers .rates)
-	CURLVL=$2  # funnel of open chain state to be taken from according barriers output file
-	CUROCID=$3 # the coarse graining level
-	CURSTARTROW=$4
+	CURLVL=$2  # the coarse graining level
+	CURSTARTID=$3 # id of start state to be taken from according barriers output file
+	CURSTARTROW=$4 # row number of the start state
  # output file prefix 
-OUTFILE=$CURFILE.treekin.p0-$OCID.t8-$MAXTIME
+OUTFILE=$CURFILE.treekin.p0-$CURSTARTID.t8-$MAXTIME
 # check if output file exists already (do not replace)
 if [ ! -f $OUTFILE.out.bz2 ]; then
  # create temporary subdir to avoid parallel file generation
@@ -171,7 +171,7 @@ treekin -m I --p0 $CURSTARTROW=1  --t8=$MAXTIME < ../$CURFILE.barriers > $CURPWD
  # generate output figure in pdf format using R
 fi # treekin output exists
 if [ $Ravailable == "1" ]; then
-R --vanilla --silent -e "k <- read.table(\"$OUTFILE.out.bz2\", header=F, sep=\"\", comment.char=\"#\", skip=8);pdf(\"$OUTFILE.pdf\");matplot(k[,1], k[,2:ncol(k)], main=\"level = $CURLVL, p0 = $CUROCID\", xlab=\"time (arbitrary units)\", ylab=\"state probability\", ylim=c(0,1), log=\"x\", type=\"l\");dev.off(); q();"
+R --vanilla --silent -e "k <- read.table(\"$OUTFILE.out.bz2\", header=F, sep=\"\", comment.char=\"#\", skip=8);pdf(\"$OUTFILE.pdf\");matplot(k[,1], k[,2:ncol(k)], main=\"level = $CURLVL, p0 = $CURSTARTID\", xlab=\"time (arbitrary units)\", ylab=\"state probability\", ylim=c(0,1), log=\"x\", type=\"l\");dev.off(); q();"
 fi # R available
 }
 
@@ -201,7 +201,6 @@ for LVL in $(seq 2 $MAXLVL); do
 	# get row of STARTID within barriers file (treekin input)
 	STARTROW=$(awk -v ocid=$STARTID '$1==ocid{print (NR-1)}' $CURPREFIX.barriers)
 	# run treekin
-echo "computing for $CURPREFIX"
 	runTreekin $CURPREFIX $LVL $STARTID $STARTROW
 done # iterate all LVL 
 
