@@ -34,7 +34,7 @@ die() { echo -e "$*" 1>&2 ; exit 1; }
 # get RNA sequence
 RNA=""
 PREFIX=$RNA
-[[ ($# -eq 0 || $# -gt 3) ]] die "\n usage : gcgRNAkinetics.sh <RNA sequence (file)> <MAXE=$MAXE> <MAXTIME=$MAXTIME>";
+[[ ($# -eq 0 || $# -gt 3) ]] && die "\n usage : gcgRNAkinetics.sh <RNA sequence (file)> <MAXE=$MAXE> <MAXTIME=$MAXTIME>";
 if [ -f $1 ]; then
 	# get file content: should contain only one RNA (consecutive) sequence
 	# trim leading/trailing whitespaces
@@ -52,6 +52,8 @@ fi
 [[ ($# -ge 2 && $2 =~ ^[-+]?[0-9]+\.?[0-9]*$ ) ]] && MAXE=$2 || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'"
 # (optional) check and set maximal time for kinetics computation 
 [[ $# -ge 3 && $3 =~ ^[0-9]+$ ]] && MAXTIME=$3
+
+echo "maxe $MAXE";
 
 # whether or not R is available for plotting
 Ravailable=1;
@@ -73,9 +75,10 @@ fi
 # get mfe to compute deltaE for RNAsubopt call
 MFE=$(echo $RNA | RNAfold --noPS | awk 'NR==2{print $NF}' | tr -d "()" | tr -d " ");
 # compute and check deltaE for RNAsubopt call (has to be positive)
-DELTAE=$(bc -l <<< "if($MAXE<$MFE) -1 else $MAXE-$MFE")
+DELTAE=$(bc <<< "if($MAXE<$MFE) -1 else $MAXE-$MFE")
 [[ $DELTAE == -1 ]] && die "\nERROR : MAXE < MFE\n";
 
+echo "deltaE = $DELTAE  mfe = $MFE  startstate $STARTSTATE msxE $MAXE"
 ##############  LEVEL 0 ENUMERATION  #################
 
 if [ ! -f $PREFIX.RNAsubopt.zip ]; then
@@ -175,7 +178,7 @@ fi # R available
 
 # set start state for trajectory computation
 STARTID=STARTSTATE
-[[ $STARTSTATE == 0 ]] && STARTID = $OCID;
+[[ $STARTSTATE == 0 ]] && STARTID=$OCID;
 # ensure STARTSTATE is within mfe component
 [[ $(grep -m 1 -c -P "^\\s*$STARTID\\s+") == 1 ]] || die "\nERROR : start state $STARTID is not within mfe component\n";
 
