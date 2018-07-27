@@ -122,10 +122,8 @@ while( scalar(@mfeCompIdsToCheck) > 0 ) {
 	
 	# skip if already processed
 	if ($mfeCompIdString =~ /,$from,/) {
-		print "skipping ".($from+1)." (already processed)\n";
 		next;
 	}
-	print "processing ".($from+1)."\n";
 	
 	# store as processed
 	push @mfeCompIds, $from;
