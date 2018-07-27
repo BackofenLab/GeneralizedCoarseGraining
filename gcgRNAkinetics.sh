@@ -74,9 +74,9 @@ fi
 
 # get mfe to compute deltaE for RNAsubopt call
 MFE=$(echo $RNA | RNAfold --noPS | awk 'NR==2{print $NF}' | tr -d "()" | tr -d " ");
-# compute and check deltaE for RNAsubopt call (has to be positive)
-[[ $MAXE -lt $MFE ]] && die "\nERROR : MAXE < MFE\n";
-DELTAE=$(bc <<< "($MAXE-$MFE)")
+# compute and check (floating point) deltaE for RNAsubopt call (has to be positive)
+[[ $(bc <<< "if($MAXE<$MFE) 1 else 0") == 1 ]] && die "\nERROR : MAXE < MFE\n";
+DELTAE=""$(bc <<< "($MAXE-$MFE)")""
 
 echo "deltaE = $DELTAE  mfe = $MFE  startstate $STARTSTATE msxE $MAXE"
 ##############  LEVEL 0 ENUMERATION  #################
