@@ -180,7 +180,7 @@ fi # R available
 STARTID=STARTSTATE
 [[ $STARTSTATE == 0 ]] && STARTID=$OCID;
 # ensure STARTSTATE is within mfe component
-[[ $(grep -m 1 -c -P "^\\s*$STARTID\\s+") == 1 ]] || die "\nERROR : start state $STARTID is not within mfe component\n";
+[[ $(grep -m 1 -c -P "^\\s*$STARTID\\s+ $PREFIX.barriers.out") == 1 ]] || die "\nERROR : start state $STARTID is not within mfe component\n";
 
 # handle level 1
 ln -s -f $PREFIX.barriers.out $PREFIX.barriers.out.1.barriers
