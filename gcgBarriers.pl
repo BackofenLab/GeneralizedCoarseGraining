@@ -50,7 +50,8 @@ my @states = ();
 # define 1/R constant
 use constant beta => 1/(8.314472 * 0.000239 * T); # in kcal/mol
 
-# read partition functions from barriers output
+print("##### reading partition functions from barriers output #####\n");
+
 my @barriersOutput = ();
 open( my $fBarOut, '<', $barriersOutputFile ) or die "ERROR: can not open barriers output file '".$barriersOutputFile."'";
 my $sequence = <$fBarOut>; # ignore first line = sequence
@@ -114,7 +115,8 @@ sub setRate {
 }
 
 
-# read rate matrix 
+print("##### read rate matrix #####\n");
+ 
 open( my $fBarRate, '<', $barriersRatesFile ) or die "ERROR: can not open barriers rates file '".$barriersRatesFile."'";
 my %rates;
 my $ratesDim=0;
@@ -133,10 +135,10 @@ close($fBarRate);
 
 ##############################################
 # gradient neighbor for a given state index
-# @param = ($from, \%rates, $dim)
+# @param = ($from, \%rates, $dim, \@Z)
 # @return = the index of the gradient neighbor or $from if no gradient neighbor exists
 sub gradientNeighbor {
-	my ($from,$rates,$dim) = @_;
+	my ($from,$rates,$dim,$Z) = @_;
 	# identify maximal out-rate
 	my $maxOutRate = -1;
 	for (my $to=0; $to<$dim; $to++) {
@@ -153,8 +155,8 @@ sub gradientNeighbor {
 		if ($to == $from) { next; }
 		my $outRate = getRate($from,$to,$rates,$dim);
 		my $inRate = getRate($to, $from,$rates,$dim);
-		# check if adaptive neighbor
-		if ($outRate>0 && $outRate==$maxOutRate && $inRate>0 && $outRate>=$inRate) {
+		# check if adaptive neighbor (use Z for final tie break, ie in- and outRate are equal)
+		if ($outRate>0 && $outRate==$maxOutRate && $inRate>0 && $outRate>=$inRate && $Z->[$from] < $Z->[$to]) {
 			# return first gradient-neighbor (keep barriers input order)
 			return $to;
 		}
@@ -226,13 +228,13 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	# increase abstraction level
 	$abstractionLevel++;
 	
-	# compile local funnel assignment for each state
+	print("##### compile local funnel assignment for each state #####\n");
 	my @funnel = ();
 	# get gradient neighbor for each state
 	for (my $from=0; $from<=$#Z; $from++) {
-		push (@funnel, gradientNeighbor($from,\%rates,$ratesDim));
+		push (@funnel, gradientNeighbor($from,\%rates,$ratesDim,\@Z));
 	}
-	#print join (" ",@funnel)."\n";
+	print join (" ",@funnel)."\n";
 	
 	# overwrite funnel assignment for basins not to be merged
 	for (my $i=0; $i<=$#basinsNotToMerge; $i++) {
@@ -240,10 +242,12 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	}
 	#print join (" ",@funnel)."\n";
 	
-	# find global funnel assignment for each state
+	print("##### find global funnel assignment for each state #####\n");
 	for (my $from=0; $from<=$#funnel; $from++) {
 		my $to = $funnel[$from];
+		print "from $from : $to";
 		while ($to != $funnel[$to]) {
+		print ", $to";
 			$to = $funnel[$to];
 		}
 		$funnel[$from] = $to;
@@ -261,7 +265,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 		exit 0;
 	}
 	
-	# store funnel assignment
+	print("##### store funnel assignment #####\n");
 	open( $fBarOut, ">", "$barriersOutputFile.$abstractionLevel$fileNamePrefix.gradient" ) or die "ERROR: cannot open output file '$barriersOutputFile.$abstractionLevel$fileNamePrefix.gradient'";
 	print $fBarOut $sequence;
 	for (my $i=0; $i<=$#funnel; $i++) {
@@ -276,7 +280,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	my @newBarriersOutput = ();
 	my @newBasinsNotToMerge = ();
 	my @newLocMinIdx = ();
-	# generate fake barriers output
+	print("##### generate fake barriers output #####\n");
 	open( $fBarOut, ">", "$barriersOutputFile.$abstractionLevel$fileNamePrefix.barriers" ) or die "ERROR: cannot open output file '$barriersOutputFile.$abstractionLevel$fileNamePrefix.barriers'";
 	print $fBarOut $sequence;
 	for (my $f=0; $f<=$#funnelCenters; $f++) {
@@ -314,7 +318,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	}
 	close($fBarOut);
 	
-	# generate new rates
+	print("##### generate new rates #####\n");
 	my $newDim = $#funnelCenters +1;
 	my %newRates;
 	for( my $i=0; $i+1<$newDim; $i++) {
@@ -359,7 +363,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 		}
 	}
 	
-	# print rates
+	print("##### print new rates #####\n");
 	open( $fBarRate, ">", "$barriersOutputFile.$abstractionLevel$fileNamePrefix.rates" ) or die "ERROR: cannot open output file '$barriersOutputFile.$abstractionLevel$fileNamePrefix.rates'";
 	for( my $i=0; $i<$newDim; $i++) {
 		for ( my $j=0; $j<$newDim; $j++) {
