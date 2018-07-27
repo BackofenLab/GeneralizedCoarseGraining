@@ -53,8 +53,6 @@ fi
 # (optional) check and set maximal time for kinetics computation 
 [[ $# -ge 3 && $3 =~ ^[0-9]+$ ]] && MAXTIME=$3
 
-echo "maxe $MAXE";
-
 # whether or not R is available for plotting
 Ravailable=1;
 # ensure required binaries are in PATH
@@ -70,7 +68,7 @@ fi
 
 [[ $STARTSTATE =~ ^[0-9]+$ ]] || die "\nERROR : index of start state has to be >= 0\n";
 
-##############  MFE COMPUTATION  #################
+echo "##############  MFE COMPUTATION  #################"
 
 # get mfe to compute deltaE for RNAsubopt call
 MFE=$(echo $RNA | RNAfold --noPS | awk 'NR==2{print $NF}' | tr -d "()" | tr -d " ");
@@ -78,8 +76,7 @@ MFE=$(echo $RNA | RNAfold --noPS | awk 'NR==2{print $NF}' | tr -d "()" | tr -d "
 [[ $(echo "if( $MAXE < $MFE ) 1 else 0" | bc) == 1 ]] && die "\nERROR : MAXE < MFE\n";
 DELTAE=$(echo "$MAXE - $MFE" | bc)
 
-echo "deltaE = $DELTAE  mfe = $MFE  startstate $STARTSTATE msxE $MAXE"
-##############  LEVEL 0 ENUMERATION  #################
+echo "##############  LEVEL 0 ENUMERATION  #################"
 
 if [ ! -f $PREFIX.RNAsubopt.zip ]; then
 
@@ -88,7 +85,7 @@ echo $RNA | RNAsubopt --deltaEnergy=$DELTAE | sort -k 2,2n -k 1,1dr -S $MAXMEM |
 
 fi
 
-##############  LEVEL 1 COARSE GRAINING  #################
+echo "##############  LEVEL 1 COARSE GRAINING  #################"
 
 if [ ! -f $PREFIX.barriers.out ]; then
 
@@ -111,7 +108,7 @@ fi
 # get open chain ID
 OCID=$(grep -P "^\\s*\\d+\\s+[\\.]+\\s+0" $PREFIX.barriers.out | awk 'NR==1 {print $1}');
 
-##############  MFE COMPONENT REDUCTION  #################
+echo "##############  MFE COMPONENT REDUCTION  #################"
 
 if [ ! -f $PREFIX.barriers.out.all ]; then
 
@@ -125,7 +122,7 @@ ln -s $PREFIX.barriers.out.mfeComp.rates $PREFIX.barriers.rates
 
 fi
 
-##############  LEVEL >1 COARSE GRAINING  #################
+echo "##############  LEVEL >1 COARSE GRAINING  #################"
 
 if [ ! -f $PREFIX.gcgBarriers.out ]; then
 
@@ -138,7 +135,7 @@ gcgBarriers.pl $PREFIX.barriers.out $PREFIX.barriers.rates
 
 fi
 
-################  TRAJECTORY COMPUTATION AND PLOTTING  ######################
+echo "################  TRAJECTORY COMPUTATION AND PLOTTING  ######################"
 
 
 # define variables for the following shell function
@@ -148,6 +145,9 @@ function runTreekin {
 	CURLVL=$2  # the coarse graining level
 	CURSTARTID=$3 # id of start state to be taken from according barriers output file
 	CURSTARTROW=$4 # row number of the start state
+
+echo "################  TRAJECTORY LEVEL $CURLVL : $CURFILE $CURSTARTID $CURSTARTROW ###############"
+
  # output file prefix 
 OUTFILE=$CURFILE.treekin.p0-$CURSTARTID.t8-$MAXTIME
 # check if output file exists already (do not replace)
