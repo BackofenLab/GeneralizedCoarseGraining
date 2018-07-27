@@ -88,17 +88,17 @@ fi
 # define variables for the following shell function
 # shell function (tested in bash) to compute one plot via treekin 
 function runTreekin {
- # output file prefix 
- OUTFILE=$FILE.treekin.p0-$OCID.t8-$MAXTIME
-# check if output file exists already (do not replace)
-if [ ! -f $OUTFILE.out.bz2 ]; then
 	CURFILE=$1 # base file name without extension (.barriers .rates)
 	CURLVL=$2  # funnel of open chain state to be taken from according barriers output file
 	CUROCID=$3 # the coarse graining level
+ # output file prefix 
+OUTFILE=$CURFILE.treekin.p0-$OCID.t8-$MAXTIME
+# check if output file exists already (do not replace)
+if [ ! -f $OUTFILE.out.bz2 ]; then
  # create temporary subdir to avoid parallel file generation
  CURPWD=$PWD
  TMPDIR=$(mktemp -d -p $CURPWD)
- echo -e "\nINFO: creating treekin temporary directory $TMPDIR for $PREFIX";
+#echo -e "\nINFO: creating treekin temporary directory $TMPDIR for $PREFIX";
  cd $TMPDIR  
  # ensure file naming for treekin call
  ln -s ../$CURFILE.rates rates.out;
