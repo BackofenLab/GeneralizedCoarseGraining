@@ -91,6 +91,7 @@ function runTreekin {
 	CURFILE=$1 # base file name without extension (.barriers .rates)
 	CURLVL=$2  # funnel of open chain state to be taken from according barriers output file
 	CUROCID=$3 # the coarse graining level
+	CUROCROW=$4
  # output file prefix 
 OUTFILE=$CURFILE.treekin.p0-$OCID.t8-$MAXTIME
 # check if output file exists already (do not replace)
@@ -103,7 +104,7 @@ if [ ! -f $OUTFILE.out.bz2 ]; then
  # ensure file naming for treekin call
  ln -s ../$CURFILE.rates rates.out;
  # call treekin
-treekin -m I --p0 $CUROCID=1  --t8=$MAXTIME < ../$CURFILE.barriers > $CURPWD/$OUTFILE.out;
+treekin -m I --p0 $CUROCROW=1  --t8=$MAXTIME < ../$CURFILE.barriers > $CURPWD/$OUTFILE.out;
  # go back to previous working directoy
  cd $CURPWD
  # cleanup temporary directory
@@ -124,7 +125,7 @@ ln -s -f $PREFIX.barriers.out $PREFIX.barriers.out.1.barriers
 ln -s -f $PREFIX.barriers.rates $PREFIX.barriers.out.1.rates
 # get open chain ID
 OCID=$(grep -P "^\\s*\\d+\\s+[\\.]+\\s+0" $PREFIX.barriers.out | awk 'NR==1 {print $1}');
-runTreekin $PREFIX.barriers.out.1 1 $OCID
+runTreekin $PREFIX.barriers.out.1 1 $OCID $OCID
 
 # get maximal level
 MAXLVL=$(ls $PREFIX.*.gradient | awk -F "." '{print $4}' | tail -n 1)
@@ -137,8 +138,10 @@ for LVL in $(seq 2 $MAXLVL); do
 	# get current OCID via gradient mapping from last level (last column)
 	LASTOCID=$OCID
 	OCID=$(grep -m 1 -P "^\\s*$LASTOCID\\s+" $CURPREFIX.gradient | awk '{print $NF}')
+	# get row of OCID within barriers file (treekin input)
+	OCROW=$(awk -v ocid=$OCID '$1==ocid{print (NR-1)}' $CURPREFIX.barriers)
 	# run treekin
 echo "computing for $CURPREFIX"
-	runTreekin $CURPREFIX $LVL $OCID
+	runTreekin $CURPREFIX $LVL $OCID $OCROW
 done # iterate all LVL 
 
