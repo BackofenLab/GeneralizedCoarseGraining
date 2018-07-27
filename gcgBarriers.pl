@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+###############################################################################
+# Iteratively compresses an energy landscape encoded in barries output format
+# using generalized coarse graining based on gradient-neighbor aggregation.
+#
+# author Martin Raden - 2018
+###############################################################################
+
 use strict;
 use List::Util qw(sum max min);
 
