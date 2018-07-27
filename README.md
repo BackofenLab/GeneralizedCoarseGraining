@@ -1,7 +1,8 @@
 # GeneralizedCoarseGraining
 
 Generalized Coarse Graining (GCG) enables the recursive coarse graining of 
-discrete energy landscapes.
+discrete energy landscapes into gradient basins, funnels, super funnels, ...,
+using a gradient-neighbor-based aggregation directive.
 
 # `gcgBarriers.pl`
 

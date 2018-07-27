@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+###############################################################################
+# Runs a complete RNA kinetics study for a given RNA sequence, i.e.
+# - enumerating the (full) micro-state energy landscape using indel-moves
+# - computing the gradient-basing partitioning (level 1) using barriers
+# - computing further coarse grainings (level >1) via gcgBarriers.pl
+# - computing probability trajectories using treekin for each coarse graining
+# - generating pdf plots of the trajectories using R
+#
+# author Martin Raden - 2018
+###############################################################################
+
 MAXMEM=4G
 
 # maximal time for kinetics computation
