@@ -141,7 +141,7 @@ if [ ! -f $PREFIX.gcgBarriers.out ]; then
 printf "#states level 0 = "; unzip -p $PREFIX.RNAsubopt.zip | grep -c -v $RNA;
 # compute generalized coarse grainings
 gcgBarriers.pl $PREFIX.barriers.out $PREFIX.barriers.rates
-) > $PREFIX.gcgBarriers.out
+) > $PREFIX.barriers.out.gcgBarriers.out
 
 fi
 
