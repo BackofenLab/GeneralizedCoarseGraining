@@ -138,6 +138,7 @@ for LVL in $(seq 2 $MAXLVL); do
 	LASTOCID=$OCID
 	OCID=$(grep -m 1 -P "^\\s*$LASTOCID\\+" $CURPREFIX.gradient | awk '{print $NF}')
 	# run treekin
+echo "computing for $CURPREFIX"
 	runTreekin $CURPREFIX $LVL $OCID
 done # iterate all LVL 
 
