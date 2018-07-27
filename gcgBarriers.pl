@@ -234,7 +234,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	for (my $from=0; $from<=$#Z; $from++) {
 		push (@funnel, gradientNeighbor($from,\%rates,$ratesDim,\@Z));
 	}
-	print join (" ",@funnel)."\n";
+	#print join (" ",@funnel)."\n";
 	
 	# overwrite funnel assignment for basins not to be merged
 	for (my $i=0; $i<=$#basinsNotToMerge; $i++) {
@@ -245,9 +245,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	print("##### find global funnel assignment for each state #####\n");
 	for (my $from=0; $from<=$#funnel; $from++) {
 		my $to = $funnel[$from];
-		print "from $from : $to";
 		while ($to != $funnel[$to]) {
-		print ", $to";
 			$to = $funnel[$to];
 		}
 		$funnel[$from] = $to;
