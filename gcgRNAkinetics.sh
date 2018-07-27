@@ -34,7 +34,7 @@ die() { echo -e "$*" 1>&2 ; exit 1; }
 # get RNA sequence
 RNA=""
 PREFIX=$RNA
-[[ ($# -eq 0 || $# -gt 3) ]] && die "\n usage : gcgRNAkinetics.sh <RNA sequence (file)> <MAXE=$MAXE> <MAXTIME=$MAXTIME>";
+[[ ($# -eq 0 || $# -gt 3) ]] && die "\n usage : gcgRNAkinetics.sh <RNA sequence (file)> <MAXE=$MAXE> <MAXTIME=$MAXTIME>\n";
 if [ -f $1 ]; then
 	# get file content: should contain only one RNA (consecutive) sequence
 	# trim leading/trailing whitespaces
@@ -46,10 +46,10 @@ else
 	PREFIX=$RNA
 fi
 # check sequence input
-[[ ( $RNA =~ ^[ACGU]+$ ) ]] || die "\nERROR : RNA sequence not valid (single sequence of [ACGU]* expected)";
+[[ ( $RNA =~ ^[ACGU]+$ ) ]] || die "\nERROR : RNA sequence not valid (single sequence of [ACGU]* expected)\n";
 # check command line arguments
 # (optional) check and set maximal energy of micro-states for kinetics computation 
-[[ ($# -ge 2 && $2 =~ ^[-+]?[0-9]+\.?[0-9]*$ ) ]] && MAXE=$2 || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'"
+[[ ($# -ge 2 && $2 =~ ^[-+]?[0-9]+\.?[0-9]*$ ) ]] && MAXE=$2 || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'\n"
 # (optional) check and set maximal time for kinetics computation 
 [[ $# -ge 3 && $3 =~ ^[0-9]+$ ]] && MAXTIME=$3
 
@@ -68,15 +68,15 @@ if [ ! $(type -P "R") ]; then
 	Ravailable=0;
 fi
 
-[[ $STARTSTATE =~ ^[0-9]+$ ]] || die "\nERROR : index of start state has to be >= 0";
+[[ $STARTSTATE =~ ^[0-9]+$ ]] || die "\nERROR : index of start state has to be >= 0\n";
 
 ##############  MFE COMPUTATION  #################
 
 # get mfe to compute deltaE for RNAsubopt call
 MFE=$(echo $RNA | RNAfold --noPS | awk 'NR==2{print $NF}' | tr -d "()" | tr -d " ");
 # compute and check deltaE for RNAsubopt call (has to be positive)
-DELTAE=$(bc <<< "if($MAXE<$MFE) -1 else $MAXE-$MFE")
-[[ $DELTAE == -1 ]] && die "\nERROR : MAXE < MFE\n";
+[[ $MAXE -lt $MFE ]] && die "\nERROR : MAXE < MFE\n";
+DELTAE=$(bc <<< "($MAXE-$MFE)")
 
 echo "deltaE = $DELTAE  mfe = $MFE  startstate $STARTSTATE msxE $MAXE"
 ##############  LEVEL 0 ENUMERATION  #################
