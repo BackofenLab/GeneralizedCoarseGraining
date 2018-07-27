@@ -155,8 +155,10 @@ sub gradientNeighbor {
 		if ($to == $from) { next; }
 		my $outRate = getRate($from,$to,$rates,$dim);
 		my $inRate = getRate($to, $from,$rates,$dim);
-		# check if adaptive neighbor (use Z for final tie break, ie in- and outRate are equal)
-		if ($outRate>0 && $outRate==$maxOutRate && $inRate>0 && $outRate>=$inRate && $Z->[$from] < $Z->[$to]) {
+#		# check if adaptive neighbor (use Z for final tie break, ie in- and outRate are equal)
+#		if ($outRate>0 && $outRate==$maxOutRate && $inRate>0 && $outRate>=$inRate && $Z->[$from] < $Z->[$to]) {
+		# check if adaptive neighbor (use input order for final tie break, ie in- and outRate are equal)
+		if ($outRate>0 && $outRate==$maxOutRate && $inRate>0 && ($outRate>$inRate || ($outRate==$inRate && $from>$to))) {
 			# return first gradient-neighbor (keep barriers input order)
 			return $to;
 		}
