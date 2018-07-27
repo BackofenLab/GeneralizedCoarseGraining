@@ -50,7 +50,7 @@ my @states = ();
 # define 1/R constant
 use constant beta => 1/(8.314472 * 0.000239 * T); # in kcal/mol
 
-print("##### reading partition functions from barriers output #####\n");
+print STDERR "##### reading partition functions from barriers output #####\n";
 
 my @barriersOutput = ();
 open( my $fBarOut, '<', $barriersOutputFile ) or die "ERROR: can not open barriers output file '".$barriersOutputFile."'";
@@ -64,7 +64,7 @@ while (my $row = <$fBarOut>) {
   push @Z, ( exp(-$cols[9]*beta) );
 }
 close($fBarOut);
-# print join(" ",@Z);
+# print STDERR join(" ",@Z);
 
 # check if basins not to merged are among the parsed basins
 for (my $i=0; $i<=$#basinsNotToMerge; $i++) {
@@ -115,7 +115,7 @@ sub setRate {
 }
 
 
-print("##### read rate matrix #####\n");
+print STDERR "##### read rate matrix #####\n";
  
 open( my $fBarRate, '<', $barriersRatesFile ) or die "ERROR: can not open barriers rates file '".$barriersRatesFile."'";
 my %rates;
@@ -228,21 +228,21 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	# increase abstraction level
 	$abstractionLevel++;
 	
-	print("##### compile local funnel assignment for each state #####\n");
+	print STDERR "##### compile local funnel assignment for each state #####\n";
 	my @funnel = ();
 	# get gradient neighbor for each state
 	for (my $from=0; $from<=$#Z; $from++) {
 		push (@funnel, gradientNeighbor($from,\%rates,$ratesDim,\@Z));
 	}
-	#print join (" ",@funnel)."\n";
+	#print STDERR join (" ",@funnel)."\n";
 	
 	# overwrite funnel assignment for basins not to be merged
 	for (my $i=0; $i<=$#basinsNotToMerge; $i++) {
 		$funnel[ $basinsNotToMerge[$i] ] = $basinsNotToMerge[$i];
 	}
-	#print join (" ",@funnel)."\n";
+	#print STDERR join (" ",@funnel)."\n";
 	
-	print("##### find global funnel assignment for each state #####\n");
+	print STDERR "##### find global funnel assignment for each state #####\n";
 	for (my $from=0; $from<=$#funnel; $from++) {
 		my $to = $funnel[$from];
 		while ($to != $funnel[$to]) {
@@ -250,12 +250,12 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 		}
 		$funnel[$from] = $to;
 	}
-	#print join (" ",@funnel)."\n";
+	#print STDERR join (" ",@funnel)."\n";
 	
 	my @funnelCentersUnsrt = do { my %seen; grep { !$seen{$_}++ } @funnel };
 	# sort funnel centers numerically
 	my @funnelCenters = sort { $a <=> $b } @funnelCentersUnsrt;
-	#print join(" ",@funnelCenters)."\n";
+	#print STDERR join(" ",@funnelCenters)."\n";
 	
 	# check if we get less funnels than we have basins so far
 	if ($#funnelCenters == $#Z) {
@@ -263,7 +263,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 		exit 0;
 	}
 	
-	print("##### store funnel assignment #####\n");
+	print STDERR "##### store funnel assignment #####\n";
 	open( $fBarOut, ">", "$barriersOutputFile.$abstractionLevel$fileNamePrefix.gradient" ) or die "ERROR: cannot open output file '$barriersOutputFile.$abstractionLevel$fileNamePrefix.gradient'";
 	print $fBarOut $sequence;
 	for (my $i=0; $i<=$#funnel; $i++) {
@@ -278,7 +278,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	my @newBarriersOutput = ();
 	my @newBasinsNotToMerge = ();
 	my @newLocMinIdx = ();
-	print("##### generate fake barriers output #####\n");
+	print STDERR "##### generate fake barriers output #####\n";
 	open( $fBarOut, ">", "$barriersOutputFile.$abstractionLevel$fileNamePrefix.barriers" ) or die "ERROR: cannot open output file '$barriersOutputFile.$abstractionLevel$fileNamePrefix.barriers'";
 	print $fBarOut $sequence;
 	for (my $f=0; $f<=$#funnelCenters; $f++) {
@@ -316,7 +316,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 	}
 	close($fBarOut);
 	
-	print("##### generate new rates #####\n");
+	print STDERR "##### generate new rates #####\n";
 	my $newDim = $#funnelCenters +1;
 	my %newRates;
 	for( my $i=0; $i+1<$newDim; $i++) {
@@ -361,7 +361,7 @@ print "#states level $abstractionLevel = ".scalar(@Z)."\n";
 		}
 	}
 	
-	print("##### print new rates #####\n");
+	print STDERR "##### print new rates #####\n";
 	open( $fBarRate, ">", "$barriersOutputFile.$abstractionLevel$fileNamePrefix.rates" ) or die "ERROR: cannot open output file '$barriersOutputFile.$abstractionLevel$fileNamePrefix.rates'";
 	for( my $i=0; $i<$newDim; $i++) {
 		for ( my $j=0; $j<$newDim; $j++) {
