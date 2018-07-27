@@ -133,9 +133,9 @@ MAXLVL=$((MAXLVL-1))
 
 # iterate over each level
 for LVL in $(seq 2 $MAXLVL); do
-	# get current OCID via gradient mapping from last level
+	# get current OCID via gradient mapping from last level (last column)
 	LASTOCID=$((OCID+1))
-	OCID=$(head -n $LASTOCID $FILE.gradient | tail -n 1 | awk '{print $11}')
+	OCID=$(grep -m 1 -P "^\\s*$LASTOCID\\+" $FILE.gradient | awk '{print $NF}')
 	# run treekin
 	runTreekin $PREFIX.barriers.out.$LVL $LVL $OCID
 done # iterate all LVL 
