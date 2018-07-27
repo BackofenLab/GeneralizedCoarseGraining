@@ -48,10 +48,20 @@ fi
 # check sequence input
 [[ ( $RNA =~ ^[ACGU]+$ ) ]] || die "\nERROR : RNA sequence not valid (single sequence of [ACGU]* expected)\n";
 # check command line arguments
-# (optional) check and set maximal energy of micro-states for kinetics computation 
-[[ ($# -ge 2 && $2 =~ ^[-+]?[0-9]+\.?[0-9]*$ ) ]] && MAXE=$2 || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'\n"
+# (optional) check and set maximal energy of micro-states for kinetics computation
+if [ $# -gt 1 ]; then
+	# check
+	[[ $2 =~ ^[-+]?[0-9]+\.?[0-9]*$ ]] || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'\n"
+	# store
+	MAXE=$2
+fi
 # (optional) check and set maximal time for kinetics computation 
-[[ $# -ge 3 && $3 =~ ^[0-9]+$ ]] && MAXTIME=$3
+if [ $# -gt 2 ]; then
+	# check
+	[[$3 =~ ^[0-9]+$ ]] || die "\nERROR : maximum number of trajectory time stesp (3rd argument) has to be an integer\n"
+	# store
+	MAXTIME=$3
+fi
 
 # whether or not R is available for plotting
 Ravailable=1;
