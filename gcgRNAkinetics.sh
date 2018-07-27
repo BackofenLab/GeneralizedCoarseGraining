@@ -136,7 +136,7 @@ for LVL in $(seq 2 $MAXLVL); do
 	CURPREFIX=$PREFIX.barriers.out.$LVL
 	# get current OCID via gradient mapping from last level (last column)
 	LASTOCID=$OCID
-	OCID=$(grep -m 1 -P "^\\s*$LASTOCID\\+" $CURPREFIX.gradient | awk '{print $NF}')
+	OCID=$(grep -m 1 -P "^\\s*$LASTOCID\\s+" $CURPREFIX.gradient | awk '{print $NF}')
 	# run treekin
 echo "computing for $CURPREFIX"
 	runTreekin $CURPREFIX $LVL $OCID
