@@ -52,14 +52,14 @@ fi
 # (optional) check and set maximal energy of micro-states for kinetics computation
 if [ $# -gt 1 ]; then
 	# check
-	[[ $2 =~ ^[-+]?[0-9]+\.?[0-9]*$ ]] || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'\n"
+	[[ "x$2" =~ ^x[-+]?[0-9]+\.?[0-9]*$ ]] || die "\nERROR : MAXE (2nd argument) is not a floating point number like '5.4'\n"
 	# store
 	MAXE=$2
 fi
 # (optional) check and set maximal time for kinetics computation 
 if [ $# -gt 2 ]; then
 	# check
-	[[$3 =~ ^[0-9]+$ ]] || die "\nERROR : maximum number of trajectory time stesp (3rd argument) has to be an integer\n"
+	[[ "x$3" =~ ^x[0-9]+$ ]] || die "\nERROR : maximum number of trajectory time steps (3rd argument) has to be an integer\n"
 	# store
 	MAXTIME=$3
 fi
