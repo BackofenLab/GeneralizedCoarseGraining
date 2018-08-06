@@ -55,12 +55,14 @@ print STDERR "##### reading partition functions from barriers output #####\n";
 my @barriersOutput = ();
 open( my $fBarOut, '<', $barriersOutputFile ) or die "ERROR: can not open barriers output file '".$barriersOutputFile."'";
 my $sequence = <$fBarOut>; # ignore first line = sequence
+my $statesLevelZero = 0;
 while (my $row = <$fBarOut>) {
   $row =~ s/^\s+|\s+$//g;
   push (@barriersOutput,$row);
   my @cols = split(/\s+/,$row);
   push @locMinIdx, $cols[0];
   push @states,$cols[8];
+  $statesLevelZero += $cols[8];
   push @Z, ( exp(-$cols[9]*beta) );
 }
 close($fBarOut);
@@ -68,7 +70,7 @@ close($fBarOut);
 
 # print level 0 information
 print "level states\n";
-print "0 ".scalar($states[0])."\n";
+print "0 $statesLevelZero\n";
 
 
 # check if basins not to merged are among the parsed basins
