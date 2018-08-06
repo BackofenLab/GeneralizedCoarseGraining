@@ -16,7 +16,8 @@
 # author Martin Raden - 2018
 ###############################################################################
 
-MAXMEM=4G
+# maximal memory available for 'sort' command. 
+SORTMAXMEM=20G # if exceeded temporary files in current directory are used.
 
 # maximal absolute energy (in kcal/mol) of micro-states to be considered 
 MAXE=99999; 
@@ -71,6 +72,7 @@ Ravailable=1;
 [[ $(type -P "barriers") ]] || die "\nERROR : barriers not in PATH\n";
 [[ $(type -P "treekin") ]] || die "\nERROR : treekin not in PATH\n";
 [[ $(type -P "gcgBarriers.pl") ]] || die "\nERROR : gcgBarriers.pl not in PATH or not executable\n";
+[[ $(type -P "gcgBarriersMfeComponentn.pl") ]] || die "\nERROR : gcgBarriersMfeComponent.pl not in PATH or not executable\n";
 if [ ! $(type -P "R") ]; then
 	echo -e "\nWARNING : R not in PATH => skipping figure generation\n"; 
 	Ravailable=0;
@@ -91,9 +93,13 @@ echo "##############  LEVEL 0 ENUMERATION  #################"
 if [ ! -f $PREFIX.RNAsubopt.zip ]; then
 
 # enumerate (and sort) all secondary structures (first by energy using structure string for tie breaking)
-echo $RNA | RNAsubopt --deltaEnergy=$DELTAE | sort -k 2,2n -k 1,1dr -S $MAXMEM | zip $PREFIX.RNAsubopt.zip -;
+echo $RNA | RNAsubopt --deltaEnergy=$DELTAE | sort -k 2,2n -k 1,1dr -S $SORTMAXMEM -T $PWD | zip $PREFIX.RNAsubopt.zip -;
 
 fi
+
+# check if state enumeration was successful
+[[ $(unzip -p $PREFIX.RNAsubopt.zip | grep -m 1 "A" -c) == 1 ]] || die "\nERROR : RNAsupopt output $PREFIX.RNAsubopt.zip seems to be empty\n";
+
 
 echo "##############  LEVEL 1 COARSE GRAINING  #################"
 
