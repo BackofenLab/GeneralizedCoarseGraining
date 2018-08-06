@@ -182,7 +182,7 @@ for (my $i=0; $i<$ratesDim; $i++) {
 my $abstractionLevel = 1;
 do {
 
-print "$abstractionLevel = ".scalar(@Z)."\n";
+print "$abstractionLevel ".scalar(@Z)."\n";
 
 	# increase abstraction level
 	$abstractionLevel++;
@@ -350,5 +350,5 @@ print "$abstractionLevel = ".scalar(@Z)."\n";
 } while ( scalar(@Z) > 1 );
 
 if (scalar(@Z) == 1) {
-	print "#states level $abstractionLevel = ".scalar(@Z)."\n";
+	print "$abstractionLevel ".scalar(@Z)."\n";
 }
