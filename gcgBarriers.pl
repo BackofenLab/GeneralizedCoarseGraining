@@ -66,6 +66,11 @@ while (my $row = <$fBarOut>) {
 close($fBarOut);
 # print STDERR join(" ",@Z);
 
+# print level 0 information
+print "level states\n";
+print "0 ".scalar($states[0])."\n";
+
+
 # check if basins not to merged are among the parsed basins
 for (my $i=0; $i<=$#basinsNotToMerge; $i++) {
 	if ($basinsNotToMerge[$i] > $#Z) {
@@ -173,59 +178,11 @@ for (my $i=0; $i<$ratesDim; $i++) {
 }
 
 
-###############################################
-## gradient neighbor for a given state index
-## @param = ($from, \%rates, $dim)
-## @return = the index of the gradient neighbor or $from if no gradient neighbor exists
-#sub gradientNeighbor {
-#	my ($from,$rates,$dim) = @_;
-#	# collect all adaptive neighbors
-#	my @adaptive = ();
-#	my @adaptiveOut = ();
-#	my @adaptiveIn = ();
-#	for (my $to=0; $to<$dim; $to++) {
-#		if ($to == $from) { next; }
-#		my $outRate = getRate($from,$to,$rates,$dim);
-#		my $inRate = getRate($to, $from,$rates,$dim);
-#		# check if adaptive neighbor
-#		if ($outRate>0 && $inRate>0 && $outRate>=$inRate) {
-#			# store adaptive neighbor
-#			push (@adaptive, $to);
-#			push (@adaptiveOut, $outRate);
-#			push (@adaptiveIn, $inRate);
-#		}
-#	}
-#	# check if no adaptive neighbors available
-#	if (scalar(@adaptive)==0) {
-#		return $from;
-#	}
-#	# get maximal out rate (for pre-gradient neighbor filtering)
-#	my $maxOut = max(@adaptiveOut);
-#	# find minimal back-rate among all pre-gradient neighbors
-#	my $minIn = max(@adaptiveIn);
-#	for (my $i=0; $i<scalar(@adaptive); $i++) {
-#		# check if pre-gradient neighbor
-#		if ($adaptiveOut[$i]==$maxOut) {
-#			# update minimal back-rate for all gradient-neighbors
-#			if ($minIn > $adaptiveIn[$i]) {
-#				$minIn = $adaptiveIn[$i];
-#			}
-#		}
-#	}
-#	# return first gradient-neighbor (keep barriers input order)
-#	for (my $i=0; $i<scalar(@adaptive); $i++) {
-#		# check if gradient neighbor
-#		if ($adaptiveOut[$i]==$maxOut && $adaptiveIn[$i]==$minIn) {
-#			return $adaptive[$i];
-#		}
-#	}	
-#}
-
 ######################  ITERATE FUNNEL GENERATION  ####################
 my $abstractionLevel = 1;
 do {
 
-print "#states level $abstractionLevel = ".scalar(@Z)."\n";
+print "$abstractionLevel = ".scalar(@Z)."\n";
 
 	# increase abstraction level
 	$abstractionLevel++;
