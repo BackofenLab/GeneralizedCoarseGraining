@@ -72,7 +72,7 @@ Ravailable=1;
 [[ $(type -P "barriers") ]] || die "\nERROR : barriers not in PATH\n";
 [[ $(type -P "treekin") ]] || die "\nERROR : treekin not in PATH\n";
 [[ $(type -P "gcgBarriers.pl") ]] || die "\nERROR : gcgBarriers.pl not in PATH or not executable\n";
-[[ $(type -P "gcgBarriersMfeComponentn.pl") ]] || die "\nERROR : gcgBarriersMfeComponent.pl not in PATH or not executable\n";
+[[ $(type -P "gcgBarriersMfeComponent.pl") ]] || die "\nERROR : gcgBarriersMfeComponent.pl not in PATH or not executable\n";
 if [ ! $(type -P "R") ]; then
 	echo -e "\nWARNING : R not in PATH => skipping figure generation\n"; 
 	Ravailable=0;
