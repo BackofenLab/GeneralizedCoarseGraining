@@ -140,7 +140,7 @@ fi
 
 echo "##############  LEVEL >1 COARSE GRAINING  #################"
 
-if [ ! -f $PREFIX.gcgBarriers.out ]; then
+if [ ! -f $PREFIX.barriers.out.gcgBarriers.out ]; then
 
 # compute generalized coarse grainings
 gcgBarriers.pl $PREFIX.barriers.out $PREFIX.barriers.rates > $PREFIX.barriers.out.gcgBarriers.out
