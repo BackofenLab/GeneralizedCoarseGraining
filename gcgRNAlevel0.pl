@@ -67,8 +67,8 @@ sub setC {
 }
 
 # fill DP matrix
-for (my $j=MINLOOP+1; $j<$n; $j++) {
-	for (my $i=$j-MINLOOP-1; $i>=0; $i--) {
+for (my $j = MINLOOP +1; $j<$n; $j++) {
+	for (my $i = $j - MINLOOP - 1; $i>=0; $i--) {
 		# j is unpaired
 		my $value = getC($i,$j-1);
 		# j is paired cases
