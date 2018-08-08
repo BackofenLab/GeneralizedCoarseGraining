@@ -96,7 +96,7 @@ echo "##############  LEVEL 0 ENUMERATION  #################"
 if [ ! -f $PREFIX.RNAsubopt.bz2 ]; then
 
 # enumerate (and sort) all secondary structures (first by energy using structure string for tie breaking)
-echo $RNA | RNAsubopt --deltaEnergy=$DELTAE | sort -k 2,2n -k 1,1dr -u -S $SORTMAXMEM -T $PWD | bzip2 > $PREFIX.RNAsubopt.bz2;
+echo $RNA | RNAsubopt --deltaEnergy=$DELTAE | sort -k 2,2n -k 1,1dr -S $SORTMAXMEM -T $PWD | bzip2 > $PREFIX.RNAsubopt.bz2;
 
 fi
 
