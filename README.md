@@ -35,20 +35,18 @@ mv rates.out $RNA.barriers.rates;
 # cleanup obsolete barriers files
 rm -f rates.bin tree.ps treeR.ps;
 
-(
-# get micro-state landscape size
-printf "#states level 0 = "; unzip -p $RNA.RNAsubopt.zip | grep -c -v $RNA;
 # compute generalized coarse grainings
 perl gcgBarriers.pl $RNA.barriers.out $RNA.barriers.rates
-)
 ```
 
 The calls produce the output
 ```[bash]
-#states level 0 = 2993
-#states level 1 = 39
-#states level 2 = 7
-#states level 3 = 1
+level number
+level states
+0 2993
+1 39
+2 7
+3 1
 ```
 which states the number of macro-states on each coarse graining level.
 Furthermore, the following files for each coarse graining level (`LVL`) > 1 are generated:
