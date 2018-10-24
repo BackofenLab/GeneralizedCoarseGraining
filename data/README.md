@@ -6,6 +6,7 @@
 | [boris-1](boris-1) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
 | [boris-2](boris-2) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
 | [xbix](xbix) | 20 | [10.1088/0305-4470/37/17/005](https://doi.org/10.1088/0305-4470/37/17/005) | artificial riboswitch |
+| [d25](d25) | 25 | [10.1007/s00706-008-0895-3](https://doi.org/10.1007/s00706-008-0895-3) | artificial riboswitch |
 | [d33](d33) | 33 | [10.1103/PhysRevE.83.011113](https://doi.org/10.1103/PhysRevE.83.011113) | artifical riboswitch |
 | [ire](ire) | 35 | [10.1093/bioinformatics/btu337](https://doi.org/10.1093/bioinformatics/btu337) | subsequence of IRE of [human L-ferritin](https://www.ncbi.nlm.nih.gov/nucleotide/KC153429.1) |
 | [d45](d45) | 45 | [(Lorenz et al., 2009)](http://www.tbi.univie.ac.at/newpapers/pdfs/TBI-p-2009-5.pdf) | artificial riboswitch |
