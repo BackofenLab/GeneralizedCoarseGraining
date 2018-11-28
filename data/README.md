@@ -18,5 +18,5 @@
 | [attenuator](attenuator) | 73 | [10.1186/1471-2105-15-60](https://doi.org/10.1186/1471-2105-15-60) |  |
 | [ms2](ms2) | 73 | [10.1186/1471-2105-15-60](https://doi.org/10.1186/1471-2105-15-60) |  |
 | [sv11p](sv11p) | 115 | [10.1002/j.1460-2075.1992.tb05620.x](http://dx.doi.org/10.1002/j.1460-2075.1992.tb05620.x) | riboswitch |
-| [f115](f115) | 33 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch modelling [sv11p](sv11p) |
+| [f115](f115) | 115 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch modelling [sv11p](sv11p) |
 
