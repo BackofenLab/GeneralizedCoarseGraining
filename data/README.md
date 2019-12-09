@@ -3,6 +3,7 @@
 
 | ID  sequence | length | reference DOI | information |
 | --- | --- | --- | --- |
+| [t08](t08) | 18 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [boris-1](boris-1) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
 | [boris-2](boris-2) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
 | [xbix](xbix) | 20 | [10.1088/0305-4470/37/17/005](https://doi.org/10.1088/0305-4470/37/17/005) | artificial riboswitch |
@@ -19,4 +20,3 @@
 | [ms2](ms2) | 73 | [10.1186/1471-2105-15-60](https://doi.org/10.1186/1471-2105-15-60) |  |
 | [sv11p](sv11p) | 115 | [10.1002/j.1460-2075.1992.tb05620.x](http://dx.doi.org/10.1002/j.1460-2075.1992.tb05620.x) | riboswitch |
 | [f115](f115) | 115 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch modelling [sv11p](sv11p) |
-
