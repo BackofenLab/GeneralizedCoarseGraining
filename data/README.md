@@ -7,6 +7,7 @@
 | [boris-1](boris-1) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
 | [boris-2](boris-2) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
 | [xbix](xbix) | 20 | [10.1088/0305-4470/37/17/005](https://doi.org/10.1088/0305-4470/37/17/005) | artificial riboswitch |
+| [hp21](hp21) | 21 | [10.1073/pnas.032443099](https://doi.org/10.1073/pnas.032443099) | hairpin |
 | [1k2g](1k2g) | 22 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [hp23](hp23) | 23 | [10.1063/1.1613255](https://dx.doi.org/10.1063/1.1613255) | hairpin |
 | [d25](d25) | 25 | [10.1007/s00706-008-0895-3](https://doi.org/10.1007/s00706-008-0895-3) | artificial riboswitch |
