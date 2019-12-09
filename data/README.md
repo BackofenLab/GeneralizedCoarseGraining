@@ -4,8 +4,8 @@
 | ID  sequence | length | reference DOI | information |
 | --- | --- | --- | --- |
 | [t08-18](t08-18) | 18 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
-| [boris-1](boris-1) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
-| [boris-2](boris-2) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
+| [f07-a](boris-1) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
+| [f07-b](boris-2) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
 | [xbix](xbix) | 20 | [10.1088/0305-4470/37/17/005](https://doi.org/10.1088/0305-4470/37/17/005) | artificial riboswitch |
 | [hp21](hp21) | 21 | [10.1073/pnas.032443099](https://doi.org/10.1073/pnas.032443099) | hairpin |
 | [1k2g](1k2g) | 22 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
