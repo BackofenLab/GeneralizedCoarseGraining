@@ -3,10 +3,11 @@
 
 | ID  sequence | length | reference DOI | information |
 | --- | --- | --- | --- |
-| [t08](t08) | 18 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
+| [t08-18](t08-18) | 18 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [boris-1](boris-1) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
 | [boris-2](boris-2) | 20 | [10.1002/bip.20761](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
 | [xbix](xbix) | 20 | [10.1088/0305-4470/37/17/005](https://doi.org/10.1088/0305-4470/37/17/005) | artificial riboswitch |
+| [1k2g](1k2g) | 22 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [hp23](hp23) | 23 | [10.1063/1.1613255](https://dx.doi.org/10.1063/1.1613255) | hairpin |
 | [d25](d25) | 25 | [10.1007/s00706-008-0895-3](https://doi.org/10.1007/s00706-008-0895-3) | artificial riboswitch |
 | [d33](d33) | 33 | [10.1103/PhysRevE.83.011113](https://doi.org/10.1103/PhysRevE.83.011113) | artifical riboswitch |
@@ -20,3 +21,4 @@
 | [ms2](ms2) | 73 | [10.1186/1471-2105-15-60](https://doi.org/10.1186/1471-2105-15-60) |  |
 | [sv11p](sv11p) | 115 | [10.1002/j.1460-2075.1992.tb05620.x](http://dx.doi.org/10.1002/j.1460-2075.1992.tb05620.x) | riboswitch |
 | [f115](f115) | 115 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch modelling [sv11p](sv11p) |
+| [ulMS2](ulMS2) | 130 | [Pubmed:7489492](https://www.ncbi.nlm.nih.gov/pubmed/7489492) | untranslated leader of MS2 RNA |
