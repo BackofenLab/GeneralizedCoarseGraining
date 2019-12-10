@@ -11,6 +11,7 @@
 | [1k2g](1k2g) | 22 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [hp23](hp23) | 23 | [10.1063/1.1613255](https://dx.doi.org/10.1063/1.1613255) | hairpin |
 | [d25](d25) | 25 | [10.1007/s00706-008-0895-3](https://doi.org/10.1007/s00706-008-0895-3) | artificial riboswitch |
+| [h03-25](h03-25) | 25 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1 | artificial riboswitch |
 | [d33](d33) | 33 | [10.1103/PhysRevE.83.011113](https://doi.org/10.1103/PhysRevE.83.011113) | artifical riboswitch |
 | [f33a](f33a) | 33 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch |
 | [f33b](f33b) | 33 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch |
