@@ -11,13 +11,15 @@
 | [1k2g](1k2g) | 22 | [10.1016/j.jmb.2008.02.007](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [hp23](hp23) | 23 | [10.1063/1.1613255](https://dx.doi.org/10.1063/1.1613255) | hairpin |
 | [d25](d25) | 25 | [10.1007/s00706-008-0895-3](https://doi.org/10.1007/s00706-008-0895-3) | artificial riboswitch |
-| [h03-25](h03-25) | 25 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a1 | riboswitch |
-| [h03-32](h03-32) | 32 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a3 | riboswitch |
+| [h03-1](h03-1) | 25 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a1 | riboswitch |
+| [h03-3](h03-3) | 32 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a3 | riboswitch |
+| [h03-4](h03-4) | 32 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a4 | riboswitch - mutant of h03-3 |
+| [h03-5](h03-5) | 32 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a5 | riboswitch - mutant of h03-3 |
 | [d33](d33) | 33 | [10.1103/PhysRevE.83.011113](https://doi.org/10.1103/PhysRevE.83.011113) | artifical riboswitch |
 | [f33a](f33a) | 33 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch |
 | [f33b](f33b) | 33 | [Pubmed:11233982](https://www.ncbi.nlm.nih.gov/pubmed/11233982) | artifical riboswitch |
 | [bhg33](bhg33) | 33 | [10.1093/bioinformatics/btu156](https://doi.org/10.1093/bioinformatics/btu156) | artificial riboswitch |
-| [h03-34](h03-34) | 34 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a2 | riboswitch |
+| [h03-2](h03-2) | 34 | [10.1016/S0022-2836(02)01243-3](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a2 | riboswitch |
 | [ire](ire) | 35 | [10.1093/bioinformatics/btu337](https://doi.org/10.1093/bioinformatics/btu337) | subsequence of IRE of [human L-ferritin](https://www.ncbi.nlm.nih.gov/nucleotide/KC153429.1) |
 | [d45](d45) | 45 | [(Lorenz et al., 2009)](https://subs.emis.de/LNI/Proceedings/Proceedings157/article5381.html) | artificial riboswitch |
 | [SL](SL) | 56 | [Pubmed:7493314](https://www.ncbi.nlm.nih.gov/pubmed/7493314) Fig.2 | spliced leader RNA stem loop I |
