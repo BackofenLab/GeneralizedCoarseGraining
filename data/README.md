@@ -1,7 +1,7 @@
 
 # Example RNA sequences and their sources
 
-| ID  sequence | length | reference DOI | information |
+| ID  sequence | length | source | information |
 | --- | --- | --- | --- |
 | [t08-18](t08-18) | 18 | [(Tang et al., 2009)](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
 | [f07-a](f07-a) | 20 | [(Fürtig et al., 2007)](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
