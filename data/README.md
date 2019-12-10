@@ -7,9 +7,9 @@
 | [f07-a](f07-a) | 20 | [(Fürtig et al., 2007)](https://doi.org/10.1002/bip.20761) Fig.7a | riboswitch |
 | [f07-b](f07-b) | 20 | [(Fürtig et al., 2007)](https://doi.org/10.1002/bip.20761) Fig.7b | riboswitch |
 | [xbix](xbix) | 20 | [(Wolfinger et al., 2004)](https://doi.org/10.1088/0305-4470/37/17/005) | artificial riboswitch |
-| [hp21](hp21) | 21 | [(Zhan & Chen, 2002)](https://doi.org/10.1073/pnas.032443099) | hairpin |
+| [hp21](hp21) | 21 | [(Zhang & Chen, 2002)](https://doi.org/10.1073/pnas.032443099) | hairpin |
 | [1k2g](1k2g) | 22 | [(Tang et al., 2009)](https://doi.org/10.1016/j.jmb.2008.02.007) Fig.1 | hairpin |
-| [hp23](hp23) | 23 | [(Zhan & Chen, 2003)](https://dx.doi.org/10.1063/1.1613255) | hairpin |
+| [hp23](hp23) | 23 | [(Zhang & Chen, 2003)](https://dx.doi.org/10.1063/1.1613255) | hairpin |
 | [d25](d25) | 25 | [(Flamm & Hofacker, 2008)](https://doi.org/10.1007/s00706-008-0895-3) | artificial riboswitch |
 | [h03-1](h03-1) | 25 | [(Höbartner & Micura, 2003)](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a1 | riboswitch |
 | [h03-3](h03-3) | 32 | [(Höbartner & Micura, 2003)](https://doi.org/10.1016/S0022-2836(02)01243-3) Fig.1-a3 | riboswitch |
